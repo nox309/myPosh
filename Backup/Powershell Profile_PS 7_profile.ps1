@@ -99,7 +99,6 @@ function Start-PSs {
     Write-Host -Foregroundcolor Green "Liste der Profile Pfade"
     Write-Host -Foregroundcolor Green "Mit 'Update-Profil' kann das Powershell Profil geupdatet werden"
     $Profile | Select-Object *
-
  }
 
  function Update-Profil {
