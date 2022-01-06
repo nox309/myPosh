@@ -47,7 +47,6 @@ function get-MoD {
     $Font = @(
         "whimsy",
         "rounded",
-        "nvscript",
         "nancyj"
     )
     $MoD_Font = $Font | Get-Random -Count 1 #get one Random Front
