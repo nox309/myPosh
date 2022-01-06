@@ -29,7 +29,7 @@ Import-Module oh-my-posh
 
 #---------------------------------------------------------[Config]-----------------------------------------------------------------
 $Version = '0.1'
-Set-Theme Paradox
+# Not Workinfg for the moment / Set-PoshPrompt -Theme Paradox
 If (-Not (Test-Path Variable:PSise)) {  # Only run this in the console and not in the ISE
     Import-Module Get-ChildItemColor
     Set-Alias l Get-ChildItem -option AllScope
@@ -109,7 +109,7 @@ function Get-Profil {
  }
 
 #---------------------------------------------------------[Logic]-------------------------------------------------------------------
-Clear-Host
+#Clear-Host
 
 if( $IsAdmin ){
     Write-Host 
