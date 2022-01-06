@@ -138,7 +138,7 @@ Write-Host
 Write-Host "The installation of myPosh requires that packages are downloaded from external sources.
 If this happens you have to confirm the execution.
 Packages that are installed from the official Powershell Libery are installed WITHOUT approval.
-However, you also have the option to allow all external sources. Which are they can be found here https://github.com/nox309/myPosh/extSources.md"
+However, you also have the option to allow all external sources. Which are they can be found here https://github.com/nox309/myPosh/doc/extSources.md"
 $accept_install = Read-Host -Prompt "Should all required packages be installed without a request? YES/NO"
 if ("yes" -eq $accept_install -or "no" -eq $accept_install) {
     write-host -ForegroundColor Green "Answer accepted, the answer was $accept_install. Script is continued"
