@@ -22,17 +22,26 @@ $Prp = New-Object System.Security.Principal.WindowsPrincipal($WID)
 $Adm = [System.Security.Principal.WindowsBuiltInRole]::Administrator
 $IsAdmin = $Prp.IsInRole($Adm)
 $PSuserPath = $PROFILE.AllUsersAllHosts
-
-$testchoco = powershell choco -v
+$FontFolder = ".\Meslo"
+$FontItem = Get-Item -Path $FontFolder
+$FontList = Get-ChildItem -Path "$FontItem\*" -Include ('*.fon','*.otf','*.ttc','*.ttf')
 
 #---------------------------------------------------------[Functions]--------------------------------------------------------------
+
+function install-Fronts {
+    foreach ($Font in $FontList) {
+            Write-Host 'Installing font -' $Font.BaseName
+            Copy-Item $Font "C:\Windows\Fonts"
+            New-ItemProperty -Name $Font.BaseName -Path "HKLM:\Software\Microsoft\Windows NT\CurrentVersion\Fonts" -PropertyType string -Value $Font.name         
+    }
+    
+}
 function get-MoD {
     ##Build the MoD/banner
     #Referenz https://artii.herokuapp.com/
     $Font = @(
         "whimsy",
         "rounded",
-        "nvscript",
         "nancyj"
     )
     $MoD_Font = $Font | Get-Random -Count 1 #get one Random Front
@@ -45,12 +54,11 @@ function get-MoD {
 }
 
 function install-noRequest {
-    if(-not($testchoco)){
+    if(-not(Test-Path C:\ProgramData\chocolatey)){
         Write-Host -ForegroundColor red "Seems Chocolatey is not installed, installing now"
         Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
-    }
-    else{
-        Write-Host -ForegroundColor Green "Chocolatey Version $testchoco is already installed"
+    }else{
+        Write-Host -ForegroundColor Green "Chocolatey is already installed"
     }
     Write-Host -ForegroundColor Green "Install Windows Terminal paket"
     choco install microsoft-windows-terminal -y 
@@ -61,7 +69,7 @@ function install-noRequest {
 
 function install-Request {
 
-    if(-not($testchoco)){
+    if(-not(Test-Path C:\ProgramData\chocolatey)){
         Write-Host -ForegroundColor red "Seems Chocolatey is not installed, installing now"
         $choco = Read-Host -Prompt "The package manager Chocolatey is not installed, but it is needed. Should it be installed now? YES/NO"
         if ("yes" -eq $choco) {
@@ -73,7 +81,7 @@ function install-Request {
         }
     }
     else{
-        Write-Host -ForegroundColor Green "Chocolatey Version $testchoco is already installed"
+        Write-Host -ForegroundColor Green "Chocolatey is already installed"
     }
 
     $wterm = Read-Host -Prompt "The windows Terminial is not installed However, it is recommended. Should it be installed now? YES/NO"
@@ -114,7 +122,7 @@ function Set-gitConfig {
 Set-ExecutionPolicy RemoteSigned -Scope LocalMachine
 
 #Checking the permissions
-if( $IsAdmin ){
+if( !$IsAdmin ){
     Write-Host -ForegroundColor Red "The script does not have enough rights to install / update the myPosh environment. Please start with admin rights!"
     break
     }
@@ -156,6 +164,8 @@ if ("yes" -eq $accept_install) {
     }
 
 # install requirements
+install-Fronts
+Register-PSRepository -Default
 Install-Module oh-my-posh -Scope AllUsers -AllowClobber -Force
 Install-Module posh-git -Scope AllUsers -AllowClobber -Force
 Install-Module Get-ChildItemColor -Scope AllUsers -AllowClobber -Force
