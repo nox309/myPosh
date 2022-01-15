@@ -12,3 +12,5 @@ This is a list of all external sources that are loaded during the installation.
 - oh-my-posh / https://ohmyposh.dev/
 
 - posh-git / https://github.com/dahlbyk/posh-git
+
+- Terminal-Icons / https://www.powershellgallery.com/packages/Terminal-Icons
