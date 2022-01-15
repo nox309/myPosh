@@ -12,7 +12,6 @@
     Author: nox309
     Email: support@inselmann.it
     Git: https://github.com/nox309
-    Version: 0.1
     DateCreated: 2022/01/01
 .LINK
     https://github.com/nox309/myPosh
@@ -24,12 +23,16 @@ $WID = [System.Security.Principal.WindowsIdentity]::GetCurrent()
 $Prp = New-Object System.Security.Principal.WindowsPrincipal($WID)
 $Adm = [System.Security.Principal.WindowsBuiltInRole]::Administrator
 $IsAdmin = $Prp.IsInRole($Adm)
+$myPosh_Version = Get-Content $env:ProgramData/myPosh/version.txt
 Import-Module posh-git
 Import-Module oh-my-posh
+Import-Module Terminal-Icons
 
 #---------------------------------------------------------[Config]-----------------------------------------------------------------
-$Version = '0.1'
 # Not Workinfg for the moment / Set-PoshPrompt -Theme Paradox
+oh-my-posh --init --shell pwsh --config $env:ProgramData/myPosh/config/OMP_config.json | Invoke-Expression
+
+
 If (-Not (Test-Path Variable:PSise)) {  # Only run this in the console and not in the ISE
     Import-Module Get-ChildItemColor
     Set-Alias l Get-ChildItem -option AllScope
@@ -101,7 +104,7 @@ function Start-PSasAdmin {
     Start-Process pwsh.exe -Verb runAs
      }
 function Get-Profil {
-    Write-Host -Foregroundcolor Green "Profil Version is" $Version
+    Write-Host -Foregroundcolor Green "Profil Version is" $myPosh_Version
     Write-Host -Foregroundcolor Green "With 'Update-Profil' can be update the profil"
     Write-Host -Foregroundcolor Green "List of all profil path:"
     $Profile | Select-Object *
