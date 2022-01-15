@@ -28,14 +28,7 @@ $FontList = Get-ChildItem -Path "$FontItem\*" -Include ('*.fon','*.otf','*.ttc',
 
 #---------------------------------------------------------[Functions]--------------------------------------------------------------
 
-function install-Fronts {
-    foreach ($Font in $FontList) {
-            Write-Host 'Installing font -' $Font.BaseName
-            Copy-Item $Font "C:\Windows\Fonts"
-            New-ItemProperty -Name $Font.BaseName -Path "HKLM:\Software\Microsoft\Windows NT\CurrentVersion\Fonts" -PropertyType string -Value $Font.name         
-    }
-    
-}
+
 function get-MoD {
     ##Build the MoD/banner
     #Referenz https://artii.herokuapp.com/
@@ -60,11 +53,20 @@ function install-noRequest {
     }else{
         Write-Host -ForegroundColor Green "Chocolatey is already installed"
     }
-    Write-Host -ForegroundColor Green "Install Windows Terminal paket"
-    choco install microsoft-windows-terminal -y 
-    
-    Write-Host -ForegroundColor Green "Install git for windows paket"
-    choco install git -y 
+
+    if(-not(Test-Path C:\Programme\WindowsApps\Microsoft.WindowsTerminal_1.11.3471.0_x64__8wekyb3d8bbwe\WindowsTerminal.exe)){
+        Write-Host -ForegroundColor red "Seems Windows Terminal is not installed, installing now"
+        choco install microsoft-windows-terminal -y 
+    }else{
+        Write-Host -ForegroundColor Green "Windows Terminal is already installed"
+    }
+
+    if(-not(Test-Path C:\Program Files\Git)){
+        Write-Host -ForegroundColor red "Seems Git for Windows is not installed, installing now"
+        choco install git -y
+    }else{
+        Write-Host -ForegroundColor Green "Git for Windows is already installed"
+    }
 }
 
 function install-Request {
@@ -103,7 +105,14 @@ function install-Request {
     }
 
 }
-
+function install-Fronts {
+    foreach ($Font in $FontList) {
+            Write-Host 'Installing font -' $Font.BaseName
+            Copy-Item $Font "C:\Windows\Fonts"
+            New-ItemProperty -Name $Font.BaseName -Path "HKLM:\Software\Microsoft\Windows NT\CurrentVersion\Fonts" -PropertyType string -Value $Font.name         
+    }
+    
+}
 function Set-gitConfig {
     $gitconfig = Read-Host "Should the global Git Config be created now?"
     if ("yes" -eq $gitconfig) {
@@ -118,6 +127,7 @@ function Set-gitConfig {
     }
 }
 
+
 #---------------------------------------------------------[Logic]-------------------------------------------------------------------
 Set-ExecutionPolicy RemoteSigned -Scope LocalMachine
 
@@ -131,6 +141,12 @@ if( !$IsAdmin ){
 if (-not($(Get-Host).Version.Major -eq 7)) {
     Write-Host -ForegroundColor Red "Incorrect Powershell version. Please start with Powershell 7!"
     Break
+    }
+
+#Test Internet Connection
+if (!Test-Connection github.com -Count 5 -TimeoutSeconds 2) {
+        Write-Host -ForegroundColor Red "Please make sure you have an internet connection to Github.com and chocolatey.org and restart the installation!"
+        Break
     }
 
 get-MoD
@@ -149,7 +165,7 @@ if ("yes" -eq $accept_install -or "no" -eq $accept_install) {
             write-host -ForegroundColor Green "Answer accepted, the answer was $accept_install. Script is continued"
         }else
         {
-            Write-Host -ForegroundColor Red "Incorrect answer, script is terminated"
+            Write-Host -ForegroundColor Red "Incorrect answer, script is terminated!"
             break
         }
     }
@@ -160,12 +176,14 @@ if ("yes" -eq $accept_install) {
         install-noRequest
     }
     else {
-        install-Request
+        Write-Host -ForegroundColor Red "The installation of required packages via external sources was not approved. The installation is therefore aborted here now. 
+        The profile can be installed manually and with some restrictions, please read the documentation on Github."
     }
 
 # install requirements
 install-Fronts
 Register-PSRepository -Default
+Install-Module -Name Terminal-Icons -Scope AllUsers -AllowClobber -Force
 Install-Module oh-my-posh -Scope AllUsers -AllowClobber -Force
 Install-Module posh-git -Scope AllUsers -AllowClobber -Force
 Install-Module Get-ChildItemColor -Scope AllUsers -AllowClobber -Force
