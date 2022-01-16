@@ -29,9 +29,6 @@ Import-Module oh-my-posh
 Import-Module Terminal-Icons
 
 #---------------------------------------------------------[Config]-----------------------------------------------------------------
-# Not Workinfg for the moment / Set-PoshPrompt -Theme Paradox
-oh-my-posh --init --shell pwsh --config $env:ProgramData/myPosh/config/OMP_config.json | Invoke-Expression
-
 
 If (-Not (Test-Path Variable:PSise)) {  # Only run this in the console and not in the ISE
     Import-Module Get-ChildItemColor
@@ -127,3 +124,6 @@ Write-Host -Foregroundcolor Green "Date: " (Get-Date)
 Write-Host -Foregroundcolor Green "System IP Adresse:" (Get-NetIPAddress -AddressFamily IPv4 -InterfaceAlias Ethernet*).IPAddress
 Write-Host -Foregroundcolor Green "System is up since:" (Get-Uptime)
 Set-Location c:\
+# Not Workinfg for the moment / Set-PoshPrompt -Theme Paradox
+#oh-my-posh --init --shell pwsh --config $env:ProgramData/myPosh/config/OMP_config.json | Invoke-Expression
+Set-PoshPrompt -Theme $env:ProgramData/myPosh/config/OMP_config.json
