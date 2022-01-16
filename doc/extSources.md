@@ -3,8 +3,6 @@
 This is a list of all external sources that are loaded during the installation. 
 
 
-## Roadmap
-
 - chocolatey - Windows Packet Manager / https://chocolatey.org/
 
 - Windows Terminal via. chocolatey / https://community.chocolatey.org/packages/microsoft-windows-terminal/
