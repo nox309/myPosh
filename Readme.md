@@ -29,7 +29,13 @@ Then start the installation file:
 ```powershell
   .\install.ps1
 ```
-
+If the Windows Terminal is already installed, you have 2 options for configuration:
+- If you are already using your own config and do not want to overwrite it, you must set the required font in the settings. You can do this either as default or only for PowerShell.
+Please select the font MesloLGM NF under Display.
+- Alternatively you can use the template that comes with myPosh, this will be overide any existing settings: </br>
+  ```powershell
+  Copy-Item -Path $env:ProgramData\myPosh\config\wt_settings.json $env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json -Force
+  ```
 
 ## Features
 
