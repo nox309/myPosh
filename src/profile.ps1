@@ -98,7 +98,7 @@ function Start-asAdmin {
 }
 
 function Start-PSasAdmin {
-    Start-Process pwsh.exe -Verb runAs
+    Start-Process wt -Verb runAs
      }
 function Get-Profil {
     Write-Host -Foregroundcolor Green "Profil Version is" $myPosh_Version
@@ -108,7 +108,7 @@ function Get-Profil {
  }
 
 #---------------------------------------------------------[Logic]-------------------------------------------------------------------
-#Clear-Host
+Clear-Host
 
 if( $IsAdmin ){
     Write-Host 
