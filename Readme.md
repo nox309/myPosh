@@ -29,7 +29,7 @@ Then start the installation file:
 ## Screenshots
 
 ![myPoshLayout](./doc/img/ProfilLayout.PNG)
-
+![myPoshGIT](./doc/img/Git.PNG)
 
 ## Acknowledgements
 
