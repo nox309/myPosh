@@ -77,7 +77,7 @@ function install-Fronts {
     foreach ($Font in $FontList) {
             Write-Host 'Installing font -' $Font.BaseName
             Copy-Item $Font "C:\Windows\Fonts"
-            New-ItemProperty -Name $Font.BaseName -Path "HKLM:\Software\Microsoft\Windows NT\CurrentVersion\Fonts" -PropertyType string -Value $Font.name         
+            New-ItemProperty -Name $Font.BaseName -Path "HKLM:\Software\Microsoft\Windows NT\CurrentVersion\Fonts" -PropertyType string -Value $Font.name -ErrorAction SilentlyContinue    
     }
     
 }
