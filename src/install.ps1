@@ -57,11 +57,13 @@ function install-noRequest {
     if(-not(Test-Path C:\Programme\WindowsApps\Microsoft.WindowsTerminal_1.11.3471.0_x64__8wekyb3d8bbwe\WindowsTerminal.exe)){
         Write-Host -ForegroundColor red "Seems Windows Terminal is not installed, installing now"
         choco install microsoft-windows-terminal -y 
+        Write-Host -ForegroundColor Green "Create config for Windows Terminal"
+        Copy-Item -Path .\config\wt_settings.json $env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json -Force
     }else{
         Write-Host -ForegroundColor Green "Windows Terminal is already installed"
     }
 
-    if(-not(Test-Path C:\Program Files\Git)){
+    if(-not(Test-Path 'C:\Program Files\Git')){
         Write-Host -ForegroundColor red "Seems Git for Windows is not installed, installing now"
         choco install git -y
     }else{
@@ -69,42 +71,6 @@ function install-noRequest {
     }
 }
 
-function install-Request {
-
-    if(-not(Test-Path C:\ProgramData\chocolatey)){
-        Write-Host -ForegroundColor red "Seems Chocolatey is not installed, installing now"
-        $choco = Read-Host -Prompt "The package manager Chocolatey is not installed, but it is needed. Should it be installed now? YES/NO"
-        if ("yes" -eq $choco) {
-            Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
-            }
-        else {
-            Write-Host -ForegroundColor Red "The installation of the Package Manager was rejected. Installation is stopped."
-            break
-        }
-    }
-    else{
-        Write-Host -ForegroundColor Green "Chocolatey is already installed"
-    }
-
-    $wterm = Read-Host -Prompt "The windows Terminial is not installed However, it is recommended. Should it be installed now? YES/NO"
-    if ("yes" -eq $wterm) {
-        Write-Host -ForegroundColor Green "Install Windows Terminal paket"
-        choco install microsoft-windows-terminal -y 
-        }
-    else {
-        Write-Host -ForegroundColor Red "The installation of the Windows Terminal was rejected. It must be reckoned by there with restrictions!"
-    }
-
-    $wterm = Read-Host -Prompt "Git is not installed However, it is recommended. Should it be installed now? YES/NO"
-    if ("yes" -eq $wterm) {
-        Write-Host -ForegroundColor Green "Install git for windows paket"
-        choco install git -y 
-        }
-    else {
-        Write-Host -ForegroundColor Red "The installation of Git was rejected. It must be reckoned by there with restrictions!"
-    }
-
-}
 function install-Fronts {
     foreach ($Font in $FontList) {
             Write-Host 'Installing font -' $Font.BaseName
@@ -144,7 +110,7 @@ if (-not($(Get-Host).Version.Major -eq 7)) {
     }
 
 #Test Internet Connection
-if (!Test-Connection github.com -Count 5 -TimeoutSeconds 2) {
+if (!(Test-Connection github.com -Count 5 -TimeoutSeconds 2)) {
         Write-Host -ForegroundColor Red "Please make sure you have an internet connection to Github.com and chocolatey.org and restart the installation!"
         Break
     }
@@ -188,7 +154,11 @@ Install-Module oh-my-posh -Scope AllUsers -AllowClobber -Force
 Install-Module posh-git -Scope AllUsers -AllowClobber -Force
 Install-Module Get-ChildItemColor -Scope AllUsers -AllowClobber -Force
 
+#copy config / Sources to Local destination
 Copy-Item -Path .\profile.ps1 -Destination $PSuserPath -Force
+Copy-Item -Path .\ $env:ProgramData\myPosh\ -Force -Recurse
+
+
 Set-gitConfig
 #Clear-Host
 Write-Host "The installation of myPosh is completed, myPosh can now be used in any Powershell version 7. The optimal result is achieved with the Windows Terminal."
