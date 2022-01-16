@@ -6,7 +6,7 @@ In addition, various functions are added to facilitate various tasks.
 
 
 ## Installation
-For installation, please download and unzip the current version. HERE
+For installation, please download and unzip the current version. [HERE](https://github.com/nox309/myPosh/releases)
 
 Then start the Powershell as admin and navigate to the unzipped directory.
 
