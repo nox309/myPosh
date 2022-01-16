@@ -1,7 +1,7 @@
 
 # myPosh
 
-myPosh is primarily intended to improve the look and usability of Powershell.
+myPosh is primarily to improve the look and usability of Powershell.
 In addition, various functions are added to facilitate various tasks.
 
 
