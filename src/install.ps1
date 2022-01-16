@@ -66,6 +66,8 @@ function install-noRequest {
     if(-not(Test-Path 'C:\Program Files\Git')){
         Write-Host -ForegroundColor red "Seems Git for Windows is not installed, installing now"
         choco install git -y
+
+        
     }else{
         Write-Host -ForegroundColor Green "Git for Windows is already installed"
     }
@@ -79,20 +81,6 @@ function install-Fronts {
     }
     
 }
-function Set-gitConfig {
-    $gitconfig = Read-Host "Should the global Git Config be created now?"
-    if ("yes" -eq $gitconfig) {
-        $gituser = Read-Host "Please enter your name:"
-        git config --global user.name $gituser
-        $gitmail = Read-Host "Please enter your email Adress:"
-        git config --global user.email $gitmail
-
-        }
-    else {
-        Write-Host "Git Configuration was skipped"
-    }
-}
-
 
 #---------------------------------------------------------[Logic]-------------------------------------------------------------------
 Set-ExecutionPolicy RemoteSigned -Scope LocalMachine
@@ -120,7 +108,8 @@ Write-Host
 Write-Host "The installation of myPosh requires that packages are downloaded from external sources.
 If this happens you have to confirm the execution.
 Packages that are installed from the official Powershell Libery are installed WITHOUT approval.
-However, you also have the option to allow all external sources. Which are they can be found here https://github.com/nox309/myPosh/doc/extSources.md"
+However, you also have the option to allow all external sources.
+Which are they can be found here https://github.com/nox309/myPosh/doc/extSources.md"
 $accept_install = Read-Host -Prompt "Should all required packages be installed without a request? YES/NO"
 if ("yes" -eq $accept_install -or "no" -eq $accept_install) {
     write-host -ForegroundColor Green "Answer accepted, the answer was $accept_install. Script is continued"
@@ -158,7 +147,5 @@ Install-Module Get-ChildItemColor -Scope AllUsers -AllowClobber -Force
 Copy-Item -Path .\profile.ps1 -Destination $PSuserPath -Force
 Copy-Item -Path .\ $env:ProgramData\myPosh\ -Force -Recurse
 
-
-Set-gitConfig
 #Clear-Host
 Write-Host "The installation of myPosh is completed, myPosh can now be used in any Powershell version 7. The optimal result is achieved with the Windows Terminal."
