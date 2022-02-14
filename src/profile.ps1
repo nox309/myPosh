@@ -23,10 +23,21 @@ $WID = [System.Security.Principal.WindowsIdentity]::GetCurrent()
 $Prp = New-Object System.Security.Principal.WindowsPrincipal($WID)
 $Adm = [System.Security.Principal.WindowsBuiltInRole]::Administrator
 $IsAdmin = $Prp.IsInRole($Adm)
+
+#define all variables
 $myPosh_Version = Get-Content $env:ProgramData/myPosh/version.txt
+$GlobalReleaseVersion = 'Get-Content -Path $env:TMP\version.txt'
+
+#prepair Variables for global use 
+Set-Variable -Name GlobalReleaseVersion -Option AllScope
+Set-Variable -Name IsAdmin -Option AllScope
+Set-Variable -Name myPosh_Version -Option AllScope
+
 Import-Module posh-git
 Import-Module oh-my-posh
 Import-Module Terminal-Icons
+
+
 
 #---------------------------------------------------------[Config]-----------------------------------------------------------------
 
@@ -102,7 +113,7 @@ function Start-PSasAdmin {
      }
 function Get-Profil {
     Write-Host -Foregroundcolor Green "Profil Version is" $myPosh_Version
-    Write-Host -Foregroundcolor Green "With 'Update-Profil' can be update the profil"
+    Write-Host -Foregroundcolor Green "With 'get-myPoshUpdate' can be check for updates."
     Write-Host -Foregroundcolor Green "List of all profil path:"
     $Profile | Select-Object *
  }
