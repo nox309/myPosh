@@ -93,16 +93,12 @@ function Start-asAdmin {
      <#
         .DESCRIPTION
         Starts an application with admin rights or with user login
-
         .PARAMETER applicaton
         Enter the full path to the .exe
-
         .EXAMPLE
         PS> Start-asAdmin -applicaton notepad.exe
-
         .EXAMPLE
         PS> Start-asAdmin -applicaton "C:\Program Files\Mozilla Firefox\firefox.exe"
-
         .EXAMPLE
         PS> Start-asAdmin -applicaton .\firefox.exe
     #>
