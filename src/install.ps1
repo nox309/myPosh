@@ -27,25 +27,6 @@ $FontItem = Get-Item -Path $FontFolder
 $FontList = Get-ChildItem -Path "$FontItem\*" -Include ('*.fon','*.otf','*.ttc','*.ttf')
 
 #---------------------------------------------------------[Functions]--------------------------------------------------------------
-
-
-function get-MoD {
-    ##Build the MoD/banner
-    #Referenz https://artii.herokuapp.com/
-    $Font = @(
-        "whimsy",
-        "rounded",
-        "nancyj"
-    )
-    $MoD_Font = $Font | Get-Random -Count 1 #get one Random Front
-    $URL = 'https://artii.herokuapp.com/make?text=Install+myPhosh&font='+$MoD_Font #sets the URL for the banner together
-    
-    #Runtime optimization, only if Api is reachable the banner is displayed
-    if (Test-Connection github.com -Count 1 -TimeoutSeconds 2) {
-        invoke-restmethod $URL -TimeoutSec 5
-    }
-}
-
 function install-noRequest {
     if(-not(Test-Path C:\ProgramData\chocolatey)){
         Write-Host -ForegroundColor red "Seems Chocolatey is not installed, installing now"
@@ -101,7 +82,6 @@ if (!(Test-Connection github.com -Count 5 -TimeoutSeconds 2)) {
         Break
     }
 
-get-MoD
 Write-Host 
 Write-Host "The installation of myPosh requires that packages are downloaded from external sources.
 If this happens you have to confirm the execution.

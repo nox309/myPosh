@@ -52,22 +52,6 @@ Set-Alias ip 'ipconfig'
 
 #---------------------------------------------------------[Functions]--------------------------------------------------------------
 # System Functions for profil
-function get-MoD {
-    ##Build the MoD/banner
-    #Referenz https://artii.herokuapp.com/
-    $Font = @(
-        "whimsy",
-        "rounded",
-        "nancyj"
-    )
-    $MoD_Font = $Font | Get-Random -Count 1 #get one Random Front
-    $URL = 'https://artii.herokuapp.com/make?text=myPhosh&font='+$MoD_Font #sets the URL for the banner together
-    
-    #Runtime optimization, only if Api is reachable the banner is displayed
-    if (Test-Connection github.com -Count 1 -TimeoutSeconds 2) {
-        invoke-restmethod $URL -TimeoutSec 5
-    }
-}
 
 function Get-Uptime {
     $LastBootUpTime=Get-WinEvent -ProviderName eventlog | Where-Object {$_.Id -eq 6005} | Select-Object TimeCreated -First 1
@@ -123,7 +107,6 @@ if( $IsAdmin ){
     Write-Host 
     }
 
-get-MoD
 Write-Host
 Write-Host -Foregroundcolor Green 'Systemname:' "$env:computername" 
 Write-Host -Foregroundcolor Green "Login User:" "$env:username"

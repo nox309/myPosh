@@ -13,7 +13,11 @@
     <Takes information in a script and stores it with time stemple in a log file>
 .EXAMPLE
     Write-Log -Message "Test Nachricht" -Severity Error -console $true>
-
+.NOTES
+    Author: nox309
+    Email: support@inselmann.it
+    Git: https://github.com/nox309
+    DateCreated: 2022/12/23
     #>
 $logpath = "C:\tmp\Powershell"
 

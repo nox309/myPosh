@@ -55,3 +55,26 @@ Please select the font MesloLGM NF under Display.
 
  - [FAQ](https://github.com/nox309/myPosh/tree/master/doc/FAQ.md)
  - [External Sources](https://github.com/nox309/myPosh/blob/master/doc/extSources.md)
+
+## Changelog
+
+### **WORK IN PROGRESS**
+- (nox309) global log function
+- (nox309) Update Function for myPosh
+- (nox309) First Version of myPosh PS Modul with global function
+
+### 0.2.0 (xxxx-xx-xx)
+- (nox309) delete MoD from Profile/Installer
+- 
+### 0.1.0 (2022-01-16)
+
+-   (nox309) first release
+
+    - Installer for all components
+      - Git For Windows
+      - Windows Termianal
+      - Powershell Powerliner oh-my-posh
+      - Fonts with icons
+    - Basic Powershell profile
+    - Configuration of Windows Terminal / If not already installed.
+
