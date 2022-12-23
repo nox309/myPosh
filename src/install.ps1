@@ -54,7 +54,7 @@ function install-noRequest {
         Write-Host -ForegroundColor Green "Chocolatey is already installed"
     }
 
-    if(-not(Test-Path C:\Programme\WindowsApps\Microsoft.WindowsTerminal_1.11.3471.0_x64__8wekyb3d8bbwe\WindowsTerminal.exe)){
+    if(-not(Test-Path C:\Users\$env:USERNAME\AppData\Local\Microsoft\WindowsApps\wt.exe)){
         Write-Host -ForegroundColor red "Seems Windows Terminal is not installed, installing now"
         choco install microsoft-windows-terminal -y 
         Write-Host -ForegroundColor Green "Create config for Windows Terminal"
@@ -66,8 +66,6 @@ function install-noRequest {
     if(-not(Test-Path 'C:\Program Files\Git')){
         Write-Host -ForegroundColor red "Seems Git for Windows is not installed, installing now"
         choco install git -y
-
-        
     }else{
         Write-Host -ForegroundColor Green "Git for Windows is already installed"
     }
@@ -114,18 +112,18 @@ $accept_install = Read-Host -Prompt "Should all required packages be installed w
 if ("yes" -eq $accept_install -or "no" -eq $accept_install) {
     write-host -ForegroundColor Green "Answer accepted, the answer was $accept_install. Script is continued"
     }
-    else {
-        $accept_install = Read-Host -Prompt "Should all required packages be installed without a request? Type YES/NO"
-        if ("yes" -eq $accept_install  -or "no" -eq $accept_install )  {
-            write-host -ForegroundColor Green "Answer accepted, the answer was $accept_install. Script is continued"
-        }else
-        {
-            Write-Host -ForegroundColor Red "Incorrect answer, script is terminated!"
-            break
-        }
+else {
+    $accept_install = Read-Host -Prompt "Should all required packages be installed without a request? Type YES/NO"
+    if ("yes" -eq $accept_install  -or "no" -eq $accept_install )  {
+        write-host -ForegroundColor Green "Answer accepted, the answer was $accept_install. Script is continued"
+    }else
+    {
+        Write-Host -ForegroundColor Red "Incorrect answer, script is terminated!"
+        break
+    }
     }
 
-#Clear-Host
+Clear-Host
 
 if ("yes" -eq $accept_install) {
         install-noRequest
