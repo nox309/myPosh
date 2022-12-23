@@ -2,15 +2,15 @@
 .NAME
     <Write-Log>
 .SYNOPSIS
-    <Bereitstellen einer Logfunktion in Powershell>
+    <Providing a log function in Powershell>
 .DESCRIPTION
-    <Stellt eine Logfunktion bereit welches ein Log unter C:\tmp\Powershell\ ablegt, diese Funktion kann aus anderen Skripten her aufgerufen werden.
-    als Status Level können 'Information','Warning','Error' und 'Debug' genutzt werden.
-    Wird der Parameter "-console $true" mit übergeben wird die Entsprechende Nachricht auch auf der Console mit ausgeben und entspreched des Status Levels Eingefärbt>
+    <Provides a log function which stores a log under C:_tmp\Powershell\, this function can be called from other scripts.
+    as status level 'Information', 'Warning', 'Error' and 'Debug' can be used.
+    If the parameter "-console $true" is passed the corresponding message will also be printed on the console and colored according to the status level.>
 .OUTPUTS
     <C:\tmp\Powershell\PS_log.txt>
 .FUNCTIONALITY
-    <Nimmt informationen in einem Script entgegen und Speicher diese mit Zeit stemple in einer Log Datei>
+    <Takes information in a script and stores it with time stemple in a log file>
 .EXAMPLE
     Write-Log -Message "Test Nachricht" -Severity Error -console $true>
 
