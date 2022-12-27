@@ -38,8 +38,6 @@ Import-Module Terminal-Icons
 Import-Module -Name $env:ProgramData/myPosh/myPosh -Verbose
 
 
-
-
 #---------------------------------------------------------[Config]-----------------------------------------------------------------
 
 If (-Not (Test-Path Variable:PSise)) {  # Only run this in the console and not in the ISE
