@@ -19,7 +19,7 @@
     Git: https://github.com/nox309
     DateCreated: 2022/12/23
     #>
-$logpath = "C:\tmp\Powershell"
+$logpath = "$Env:TEMP\myPosh"
 
 if(Test-Path  $logpath) 
 	{ 
