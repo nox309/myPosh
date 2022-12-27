@@ -50,6 +50,8 @@ function install-noRequest {
     }else{
         Write-Host -ForegroundColor Green "Git for Windows is already installed"
     }
+    Set-ExecutionPolicy Bypass -Scope Process -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://ohmyposh.dev/install.ps1'))
+    oh-my-posh font install
 }
 
 function install-Fronts {
@@ -62,8 +64,6 @@ function install-Fronts {
 }
 
 #---------------------------------------------------------[Logic]-------------------------------------------------------------------
-Set-ExecutionPolicy RemoteSigned -Scope LocalMachine
-
 #Checking the permissions
 if( !$IsAdmin ){
     Write-Host -ForegroundColor Red "The script does not have enough rights to install / update the myPosh environment. Please start with admin rights!"
@@ -76,11 +76,15 @@ if (-not($(Get-Host).Version.Major -eq 7)) {
     Break
     }
 
+Set-ExecutionPolicy RemoteSigned -Scope LocalMachine
+
 #Test Internet Connection
 if (!(Test-Connection github.com -Count 5 -TimeoutSeconds 2)) {
         Write-Host -ForegroundColor Red "Please make sure you have an internet connection to Github.com and chocolatey.org and restart the installation!"
         Break
     }
+
+Clear-Host
 
 Write-Host 
 Write-Host "The installation of myPosh requires that packages are downloaded from external sources.
@@ -117,7 +121,6 @@ if ("yes" -eq $accept_install) {
 install-Fronts
 Register-PSRepository -Default
 Install-Module -Name Terminal-Icons -Scope AllUsers -AllowClobber -Force
-Install-Module oh-my-posh -Scope AllUsers -AllowClobber -Force
 Install-Module posh-git -Scope AllUsers -AllowClobber -Force
 Install-Module Get-ChildItemColor -Scope AllUsers -AllowClobber -Force
 
