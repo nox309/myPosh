@@ -33,14 +33,14 @@ else
 function Write-Log {
     [CmdletBinding()]
     param(
-        [Parameter()]
+        [Parameter(Mandatory=$true)]
         [ValidateNotNullOrEmpty()]
         [string]$Message,
 
         [parameter(Mandatory=$false)]
         [bool]$console, 
 
-        [Parameter()]
+        [Parameter(Mandatory=$true)]
         [ValidateNotNullOrEmpty()]
         [ValidateSet('Information','Warning','Error','Debug')]
         [string]$Severity = 'Information'
