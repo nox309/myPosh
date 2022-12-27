@@ -34,8 +34,9 @@ Set-Variable -Name IsAdmin -Option AllScope
 Set-Variable -Name myPosh_Version -Option AllScope
 
 Import-Module posh-git
-Import-Module oh-my-posh
 Import-Module Terminal-Icons
+Import-Module -Name $env:ProgramData/myPosh/myPosh -Verbose
+
 
 
 
@@ -116,4 +117,5 @@ Write-Host -Foregroundcolor Green "System is up since:" (Get-Uptime)
 Set-Location c:\
 # Not Workinfg for the moment / Set-PoshPrompt -Theme Paradox
 #oh-my-posh --init --shell pwsh --config $env:ProgramData/myPosh/config/OMP_config.json | Invoke-Expression
-Set-PoshPrompt -Theme $env:ProgramData/myPosh/config/OMP_config.json
+#Set-PoshPrompt -Theme $env:ProgramData/myPosh/config/OMP_config.json
+oh-my-posh init pwsh --config $env:ProgramData/myPosh/config/OMP_config.json | Invoke-Expression
