@@ -17,6 +17,9 @@
     https://github.com/nox309/myPosh
 #>
 #Get current stabel Version
+
+$PSuserPath = $PROFILE.AllUsersAllHosts
+
 function get-myPoshVersion {   
     Start-BitsTransfer -Source "https://raw.githubusercontent.com/nox309/myPosh/master/src/version.txt" -Destination $env:TMP\version.txt
     $GlobalReleaseVersion = Get-Content -Path $env:TMP\version.txt
@@ -48,6 +51,7 @@ function update-myPoshStable {
     $url = "https://github.com/nox309/myPosh/releases/download/$GlobalReleaseVersion/myPosh_v$GlobalReleaseVersion.zip"
     Invoke-RestMethod -Uri $url -OutFile $env:TMP\myPosh_v$GlobalReleaseVersion.zip
     Expand-Archive -Path "$env:TMP\myPosh_v$GlobalReleaseVersion.zip" -DestinationPath "$env:ProgramData\myPosh\" -Force
+    Copy-Item -Path "$env:ProgramData\myPosh\profile.ps1" -Destination $PSuserPath -Force
 }
 
 #Update Function for Beta Version 
@@ -55,7 +59,8 @@ function update-myPoshBeta {
     # TODO: query with indication that a beta version is being installed and whether you are sure.
     Invoke-RestMethod -Uri "https://codeload.github.com/nox309/myPosh/zip/refs/heads/master" -OutFile $env:TMP\myPosh_master.zip
     Expand-Archive -Path "$env:TMP\myPosh_master.zip" -DestinationPath "$env:TMP\myPosh_master\" -Force
-    Copy-Item -Path $env:TMP\myPosh_master\myPosh-master\src\* $env:ProgramData\myPosh\ -Force -Recurse 
+    Copy-Item -Path $env:TMP\myPosh_master\myPosh-master\src\* $env:ProgramData\myPosh\ -Force -Recurse
+    Copy-Item -Path "$env:ProgramData\myPosh\profile.ps1" -Destination $PSuserPath -Force
 }
 
 

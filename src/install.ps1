@@ -76,7 +76,7 @@ if (-not($(Get-Host).Version.Major -eq 7)) {
     Break
     }
 
-Set-ExecutionPolicy RemoteSigned -Scope LocalMachine
+Set-ExecutionPolicy Bypass -Scope Process
 
 #Test Internet Connection
 if (!(Test-Connection github.com -Count 5 -TimeoutSeconds 2)) {
