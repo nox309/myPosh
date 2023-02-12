@@ -40,8 +40,10 @@ function install-noRequest {
         choco install microsoft-windows-terminal -y 
         Write-Host -ForegroundColor Green "Create config for Windows Terminal"
         Copy-Item -Path .\config\wt_settings.json $env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json -Force
+        $script:isWTinstall = $false 
     }else{
         Write-Host -ForegroundColor Green "Windows Terminal is already installed"
+        $script:isWTinstall = $true 
     }
 
     if(-not(Test-Path 'C:\Program Files\Git')){
@@ -126,6 +128,21 @@ Install-Module Get-ChildItemColor -Scope AllUsers -AllowClobber -Force
 
 #copy config / Sources to Local destination
 Copy-Item -Path .\profile.ps1 -Destination $PSuserPath -Force
+
+#Update WT Configiguration
+
+if ($isWTinstall) {
+    Write-Host 
+    Write-Host "It seems that the Windows terminal is already installed!"
+    $accept_override = Read-Host -Prompt "Should the existing configuration of Windows Terminal be overwritten by myPosh, a backup copy of the current one will be created? YES/NO"
+    if ("yes" -eq $accept_override) {
+        Move-Item -Path $env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json -Destination $env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json.backup -Force
+        Copy-Item -Path $env:ProgramData\myPosh\config\wt_settings.json $env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json -Force
+    }
+    else {
+        Write-Host -ForegroundColor Red "The optimal settings for the Windows terminal were not set. Please set them manually in the Windows terminal according to the documentation on Github."
+    }
+}
 
 #Clear-Host
 Write-Host "The installation of myPosh is completed, myPosh can now be used in any Powershell version 7. The optimal result is achieved with the Windows Terminal."
