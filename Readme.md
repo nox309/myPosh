@@ -8,8 +8,14 @@ In addition, various functions are added to facilitate various tasks.
 ## Prerequisites:
 
 Windows Powershell 7 must already be installed on the system.</br>
-This can be downloaded here:</br>
+this can be installed as follow:</br>
 
+via winget (recommended):
+```
+winget install --id Microsoft.Powershell --source winget
+```
+
+Manual download and installation
 [Powershell 7.x](https://docs.microsoft.com/de-de/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.2#installing-the-msi-package)</br>
 </br>
 
@@ -32,17 +38,15 @@ Then start the installation file:
 If the Windows Terminal is already installed, you have 2 options for configuration:
 - If you are already using your own config and do not want to overwrite it, you must set the required font in the settings. You can do this either as default or only for PowerShell.
 Please select the font MesloLGM NF under Display.
-- Alternatively you can use the template that comes with myPosh, this will be overwrite any existing settings: </br>
-  ```powershell
-  Copy-Item -Path $env:ProgramData\myPosh\config\wt_settings.json $env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json -Force
-  ```
+- Alternatively you can use the template that comes with myPosh, this will be overwrite any existing settings. The installation script will ask you for it and overwrite the config with the config of myPosh if you confirm it. </br>
+
 
 ## Features
 
 - Windows Terminal Configuration
 - Customization of Powershell layout
-- Functions:
-  - Start-asAdmin
+- built-in features:
+  - Start-asAdmin 
   - Start-PSasAdmin
 
 
