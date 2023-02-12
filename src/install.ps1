@@ -126,7 +126,6 @@ Install-Module Get-ChildItemColor -Scope AllUsers -AllowClobber -Force
 
 #copy config / Sources to Local destination
 Copy-Item -Path .\profile.ps1 -Destination $PSuserPath -Force
-Copy-Item -Path .\ $env:ProgramData\myPosh\ -Force -Recurse
 
 #Clear-Host
 Write-Host "The installation of myPosh is completed, myPosh can now be used in any Powershell version 7. The optimal result is achieved with the Windows Terminal."
