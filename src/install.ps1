@@ -128,6 +128,7 @@ Install-Module Get-ChildItemColor -Scope AllUsers -AllowClobber -Force
 
 #copy config / Sources to Local destination
 Copy-Item -Path .\profile.ps1 -Destination $PSuserPath -Force
+Copy-Item -Path .\ $env:ProgramData\myPosh\ -Force -Recurse
 
 #Update WT Configiguration
 
