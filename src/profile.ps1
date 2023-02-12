@@ -17,7 +17,7 @@
     https://github.com/nox309/myPosh
 #>
 
-#---------------------------------------------------------[Initialisations]--------------------------------------------------------
+#---------------------------------------------------------[Config]--------------------------------------------------------
 # Function to test if the current host is being run as an administrator.
 $WID = [System.Security.Principal.WindowsIdentity]::GetCurrent()
 $Prp = New-Object System.Security.Principal.WindowsPrincipal($WID)
@@ -25,8 +25,8 @@ $Adm = [System.Security.Principal.WindowsBuiltInRole]::Administrator
 $IsAdmin = $Prp.IsInRole($Adm)
 
 #define all variables
-$myPosh_Version = Get-Content $env:ProgramData/myPosh/version.txt
-$GlobalReleaseVersion = 'Get-Content -Path $env:TMP\version.txt'
+$myPosh_Version = "0.2.0"
+
 
 #prepair Variables for global use 
 Set-Variable -Name GlobalReleaseVersion -Option AllScope
@@ -35,10 +35,9 @@ Set-Variable -Name myPosh_Version -Option AllScope
 
 Import-Module posh-git
 Import-Module Terminal-Icons
-Import-Module -Name $env:ProgramData/myPosh/myPosh -Verbose
 
 
-#---------------------------------------------------------[Config]-----------------------------------------------------------------
+#---------------------------------------------------------[Initialisations]-----------------------------------------------------------------
 
 If (-Not (Test-Path Variable:PSise)) {  # Only run this in the console and not in the ISE
     Import-Module Get-ChildItemColor
@@ -66,6 +65,7 @@ function prompt{
 		$host.ui.RawUI.WindowTitle = "Administrator:" + " " + $(get-location)
 	}
 }
+
 #"public" functions for users
 function Start-asAdmin {
     param (
@@ -93,7 +93,7 @@ function Start-PSasAdmin {
 function Get-Profil {
     Write-Host -Foregroundcolor Green "Profil Version is" $myPosh_Version
     Write-Host -Foregroundcolor Green "With 'get-myPoshUpdate' can be check for updates."
-    Write-Host -Foregroundcolor Green "List of all profil path:"
+    Write-Host -Foregroundcolor Green "List of all profil paths:"
     $Profile | Select-Object *
  }
 
@@ -113,7 +113,5 @@ Write-Host -Foregroundcolor Green "Date: " (Get-Date)
 Write-Host -Foregroundcolor Green "System IP Adresse:" (Get-NetIPAddress -AddressFamily IPv4 -InterfaceAlias Ethernet*).IPAddress
 Write-Host -Foregroundcolor Green "System is up since:" (Get-Uptime)
 Set-Location c:\
-# Not Workinfg for the moment / Set-PoshPrompt -Theme Paradox
-#oh-my-posh --init --shell pwsh --config $env:ProgramData/myPosh/config/OMP_config.json | Invoke-Expression
-#Set-PoshPrompt -Theme $env:ProgramData/myPosh/config/OMP_config.json
+
 oh-my-posh init pwsh --config $env:ProgramData/myPosh/config/OMP_config.json | Invoke-Expression
