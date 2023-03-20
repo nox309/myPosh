@@ -125,6 +125,7 @@ Register-PSRepository -Default
 Install-Module -Name Terminal-Icons -Scope AllUsers -AllowClobber -Force
 Install-Module posh-git -Scope AllUsers -AllowClobber -Force
 Install-Module Get-ChildItemColor -Scope AllUsers -AllowClobber -Force
+Install-Module -Name myPosh_write-log -Scope AllUsers -AllowClobber -Force
 
 #copy config / Sources to Local destination
 Copy-Item -Path .\profile.ps1 -Destination $PSuserPath -Force

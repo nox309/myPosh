@@ -25,7 +25,7 @@ $Adm = [System.Security.Principal.WindowsBuiltInRole]::Administrator
 $IsAdmin = $Prp.IsInRole($Adm)
 
 #define all variables
-$myPosh_Version = "0.2.0"
+$myPosh_Version = "0.3.0"
 
 
 #prepair Variables for global use 
@@ -35,6 +35,7 @@ Set-Variable -Name myPosh_Version -Option AllScope
 
 Import-Module posh-git
 Import-Module Terminal-Icons
+Import-Module myPosh_write-log
 
 
 #---------------------------------------------------------[Initialisations]-----------------------------------------------------------------
