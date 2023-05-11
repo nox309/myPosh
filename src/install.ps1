@@ -52,7 +52,7 @@ function install-noRequest {
     }else{
         Write-Host -ForegroundColor Green "Git for Windows is already installed"
     }
-    Set-ExecutionPolicy Bypass -Scope Process -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://ohmyposh.dev/install.ps1'))
+    Set-ExecutionPolicy Bypass -Scope Process -Force; Invoke-Command -ScriptBlock ([scriptblock]::Create([System.Text.Encoding]::UTF8.GetString((New-Object Net.WebClient).DownloadData('https://ohmyposh.dev/install.ps1')))) -ArgumentList @('AllUsers')
     oh-my-posh font install
 }
 
